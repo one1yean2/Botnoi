@@ -63,18 +63,7 @@ func main() {
 			if event.Type == linebot.EventTypeMessage {
 				switch message := event.Message.(type) {
 				case *linebot.TextMessage:
-					if message.Text == "เริ่มนต้น" {
 
-						var textMessages []linebot.SendingMessage
-						textMessages = append(textMessages,
-							linebot.NewTextMessage("สวัสดีครับผม"))
-						textMessages = append(textMessages,
-							linebot.NewTextMessage("นี่คือร้านการ์ตูน NongYean(น้องยีนส์) ครับ\nกดปุ่มข้างล่างเพื่อดำเนินการต่อได้เลยนะครับ").WithQuickReplies(&linebot.QuickReplyItems{quickReply}))
-
-						if _, err := bot.ReplyMessage(event.ReplyToken, textMessages...).Do(); err != nil {
-							log.Print(err)
-						}
-					}
 					if message.Text == "ติดต่อ" {
 						if _, err := bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("ติดต่อน้องยีนส์ได้ที่ เบอร์ : 082-6351247").WithQuickReplies(&linebot.QuickReplyItems{quickReply})).Do(); err != nil {
 							log.Print(err)
@@ -116,6 +105,18 @@ func main() {
 								}
 								break
 							}
+						}
+					}
+					if message.Text != "" {
+
+						var textMessages []linebot.SendingMessage
+						textMessages = append(textMessages,
+							linebot.NewTextMessage("สวัสดีครับผม"))
+						textMessages = append(textMessages,
+							linebot.NewTextMessage("นี่คือร้านการ์ตูน NongYean(น้องยีนส์) ครับ\nกดปุ่มข้างล่างเพื่อดำเนินการต่อได้เลยนะครับ").WithQuickReplies(&linebot.QuickReplyItems{quickReply}))
+
+						if _, err := bot.ReplyMessage(event.ReplyToken, textMessages...).Do(); err != nil {
+							log.Print(err)
 						}
 					}
 				}
